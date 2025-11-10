@@ -1,0 +1,67 @@
+#include <stdio.h>
+
+// Define a structure for Student
+struct Student {
+    int rollNo;
+    char name[50];
+    int percentage;
+};
+
+int main() {
+    struct Student students[100];  // array to store up to 100 students
+    int count = 0;                 // to keep track of how many students added
+    int choice;                    // menu choice
+    int i;                         // loop variable
+
+    while (1) {
+        // Display menu
+        printf("\n==== Student Information System ====\n");
+        printf("1. Add Student\n");
+        printf("2. Display All Students\n");
+        printf("3. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        if (choice == 1) {
+            // Add a new student
+            printf("\nEnter Roll Number: ");
+            scanf("%d", &students[count].rollNo);
+
+            printf("Enter Name: ");
+            scanf("%s", students[count].name);  // single word name (simple)
+
+            printf("Enter Percentage: ");
+            scanf("%d", &students[count].percentage);
+
+            count++;  // increase the number of students
+            printf("Student added successfully!\n");
+        }
+
+        else if (choice == 2) {
+            // Display all students
+            if (count == 0) {
+                printf("\nNo records found.\n");
+            } else {
+                printf("\n--- Student Records ---\n");
+                for (i = 0; i < count; i++) {
+                    printf("Roll No: %d\n", students[i].rollNo);
+                    printf("Name   : %s\n", students[i].name);
+                    printf("Age    : %d\n", students[i].percentage);
+                    printf("------------------------\n");
+                }
+            }
+        }
+
+        else if (choice == 3) {
+            // Exit the program
+            printf("Exiting program\n");
+            break;
+        }
+
+        else {
+            printf("Invalid choice!\n");
+        }
+    }
+
+    return 0;
+}
