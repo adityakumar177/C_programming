@@ -33,26 +33,135 @@ int main() {
 
         switch (choice) {
             case 1:
-                if (count < MAX_STUDENTS) {
+                if (count < MAX_STUDENTS)
                     addStudent(students, &count);
-                } else {
+                else
                     printf("Student database is full!\n");
-                }
                 break;
+
             case 2:
                 displayStudents(students, count);
                 break;
+
             case 3:
                 searchStudent(students, count);
                 break;
+
             case 4:
                 updateStudent(students, count);
                 break;
+
             case 5:
                 deleteStudent(students, &count);
                 break;
+
             case 6:
+                printf("Exiting program...\n");
                 return 0;
+
             default:
-                printf("Invalid choice");
-                break;
+                printf("Invalid choice! Please try again.\n");
+        }
+    }
+}
+
+/*-------------------------------------------
+ * Add a new student
+ -------------------------------------------*/
+void addStudent(struct Student s[], int *count) {
+    printf("Enter roll number: ");
+    scanf("%d", &s[*count].rollno);
+
+    printf("Enter name: ");
+    scanf("%s", s[*count].name);
+
+    printf("Enter marks: ");
+    scanf("%f", &s[*count].marks);
+
+    (*count)++;
+    printf("Student added successfully!\n");
+}
+
+/*-------------------------------------------
+ * Display all students
+ -------------------------------------------*/
+void displayStudents(struct Student s[], int count) {
+    if (count == 0) {
+        printf("No students to display.\n");
+        return;
+    }
+
+    printf("\nStudent List:\n");
+    for (int i = 0; i < count; i++) {
+        printf("Roll No: %d\n", s[i].rollno);
+        printf("Name: %s\n", s[i].name);
+        printf("Marks: %.2f\n\n", s[i].marks);
+    }
+}
+
+/*-------------------------------------------
+ * Search a student by roll number
+ -------------------------------------------*/
+void searchStudent(struct Student s[], int count) {
+    int roll;
+    printf("Enter roll number to search: ");
+    scanf("%d", &roll);
+
+    for (int i = 0; i < count; i++) {
+        if (s[i].rollno == roll) {
+            printf("\nStudent Found:\n");
+            printf("Roll No: %d\n", s[i].rollno);
+            printf("Name: %s\n", s[i].name);
+            printf("Marks: %.2f\n", s[i].marks);
+            return;
+        }
+    }
+
+    printf("Student not found!\n");
+}
+
+/*-------------------------------------------
+ * Update student details
+ -------------------------------------------*/
+void updateStudent(struct Student s[], int count) {
+    int roll;
+    printf("Enter roll number to update: ");
+    scanf("%d", &roll);
+
+    for (int i = 0; i < count; i++) {
+        if (s[i].rollno == roll) {
+            printf("Enter new name: ");
+            scanf("%s", s[i].name);
+
+            printf("Enter new marks: ");
+            scanf("%f", &s[i].marks);
+
+            printf("Student record updated!\n");
+            return;
+        }
+    }
+
+    printf("Student not found!\n");
+}
+
+/*-------------------------------------------
+ * Delete a student
+ -------------------------------------------*/
+void deleteStudent(struct Student s[], int *count) {
+    int roll;
+    printf("Enter roll number to delete: ");
+    scanf("%d", &roll);
+
+    for (int i = 0; i < *count; i++) {
+        if (s[i].rollno == roll) {
+            for (int j = i; j < *count - 1; j++)
+                s[j] = s[j + 1];
+
+            (*count)--;
+            printf("Student deleted successfully!\n");
+            return;
+        }
+    }
+
+    printf("Student not found!\n");
+}
